@@ -1,0 +1,41 @@
+---
+version: "2.1"
+
+services:
+  certbot-dns-godaddy:
+    build: .
+    image: tya/certbot-dns-godaddy
+    cap_drop:
+      - all
+    volumes:
+      - type: bind
+        source: ./ini
+        target: /ini
+        read_only: true
+      - type: volume
+        source: configdir
+        target: /etc/letsencrypt
+      - type: volume
+        source: workdir
+        target: /var/lib/letsencrypt
+      - type: volume
+        source: logdir
+        target: /var/log/letsencrypt
+    command: >
+      certbot certonly
+      --non-interactive
+      --keep-until-expiring
+      --authenticator dns-godaddy
+      --dns-godaddy-propagation-seconds 900
+      --dns-godaddy-credentials /ini/godaddy_credentials.ini
+      --expand
+      --server https://acme-v02.api.letsencrypt.org/directory
+      --agree-tos
+      --email ${CERTBOT_EMAIL}
+      --domain ${CERTBOT_DOMAIN}
+      --domain ${CERTBOT_WILDCARD_DOMAIN}
+
+volumes:
+  configdir:
+  workdir:
+  logdir:
