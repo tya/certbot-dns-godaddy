@@ -1,0 +1,12 @@
+---
+version: "2.1"
+services:
+  certbot-dns-godaddy:
+    build: .
+    image: tya/certbot-dns-godaddy
+    volumes:
+      - /var/lib/letsencrypt:/var/lib/letsencrypt
+      - /etc/letsencrypt:/etc/letsencrypt
+    command: certbot certonly --authenticator dns-godaddy --dns-godaddy-propagation-seconds 900 --dns-godaddy-credentials /var/lib/letsencrypt/godaddy_credentials.ini --keep-until-expiring --non-interactive --expand --server https://acme-v02.api.letsencrypt.org/directory --agree-tos --email ty.alexander@gmail.com -d tynet.us -d *.tynet.us
+ 
+

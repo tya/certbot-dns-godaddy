@@ -1,6 +1,6 @@
 FROM certbot/certbot
-LABEL org.opencontainers.image.source="https://github.com/miigotu/certbot-dns-godaddy"
-LABEL maintainer="miigotu@gmail.com"
+LABEL org.opencontainers.image.source="https://github.com/tya/certbot-dns-godaddy"
+LABEL maintainer="ty.alexander@gmail.com"
 ENV PYTHONIOENCODING="UTF-8"
 
 COPY . src/certbot-dns-godaddy
